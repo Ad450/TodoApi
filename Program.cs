@@ -1,6 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using TodoApi.Repository;
+using TodoApi.Services;
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<TodoContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("todoConnectionString")
+));
+
+builder.Services.AddScoped<ITodoService, TodoService>();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -16,9 +28,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
-
+app.MapControllers();
 
 app.Run();
 
