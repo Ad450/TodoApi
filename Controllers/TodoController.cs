@@ -1,25 +1,52 @@
 ﻿namespace TodoApi.Controllers;
 
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
 using TodoApi.Models;
-using TodoApi.Repository;
 using TodoApi.Services;
+
+
 
 [ApiController]
 [Route("api/[controller]")]
-public class TodoController(ITodoService todoService) : ControllerBase
+public class TodoController(ITodoService _todoService) : ControllerBase
 {
-    private readonly ITodoService _todoService = todoService;
 
-    // public ITodoService _todoService => HttpContext.RequestServices.GetService<TodoService>();
+    [HttpPost("createToken")]
+    public IActionResult CreateToken()
+    {
+        IDictionary<string, object> claims = new Dictionary<string, object>
+        {
+            { ClaimTypes.Role, "Student" },
+            { ClaimTypes.Role, "Admin" },
 
+        };
+        var securityTokenDescriptor = new SecurityTokenDescriptor()
+        {
+            Issuer = "YourIssuerHere",
+            Expires = DateTime.UtcNow.AddDays(1),
+            Audience = "http://localhost:5076",
+            Claims = claims,
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey
+                                    (Encoding.UTF8.GetBytes("this is my key this is my key this is my key this is my key this is my key this is my key this is my key this is my key  ")),
+                                         SecurityAlgorithms.HmacSha256)
+
+        };
+        var token = new JsonWebTokenHandler().CreateToken(securityTokenDescriptor);
+
+        return Ok(token);
+    }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {
         return Ok(await _todoService.GetTodoByIdAsync(id));
     }
+
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
@@ -28,6 +55,7 @@ public class TodoController(ITodoService todoService) : ControllerBase
         // return Ok(await _todoContext.Todos.ToListAsync());
     }
 
+    [Authorize(Policy = "AdminOnly")]
     [HttpPost()]
     public async Task<IActionResult> Create([FromBody] Todo todo)
     {
@@ -54,3 +82,8 @@ public class TodoController(ITodoService todoService) : ControllerBase
 
 }
 
+
+// Authentication mechanisms
+// stateless JWT
+// stateful JWT
+// session

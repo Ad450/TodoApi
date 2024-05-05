@@ -5,10 +5,9 @@ using TodoApi.Repository;
 
 namespace TodoApi.Services;
 
-public class TodoService(TodoContext todoContext) : ITodoService
+public class TodoService(TodoContext _todoContext) : ITodoService
 
 {
-    private readonly TodoContext _todoContext = todoContext;
 
     public async Task CreateTodoAsync(Todo todo)
     {
