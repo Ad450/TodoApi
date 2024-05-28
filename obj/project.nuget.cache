@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "CJashMn4K9VnanA5T90v6U+loZTRr1j0dtQ0fkZcJT/nAxyBkAh5V4+7s4LVBmtsyU33W9B+dWlcQhJvoU1/gg==",
+  "dgSpecHash": "iUaRxvUcF/U+5BzzQYROjiEnRYatrm8rIJhApsWQcNoOT7iWjoYv4lhHfey7KRrNY21cg7/XI0Dsa3tUOT3Vwg==",
   "success": true,
   "projectFilePath": "/Users/duncan/remotown/TodoApi/TodoApi.csproj",
   "expectedPackageFiles": [
     "/Users/duncan/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
+    "/Users/duncan/.nuget/packages/mediatr/12.2.0/mediatr.12.2.0.nupkg.sha512",
+    "/Users/duncan/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/Users/duncan/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.4/microsoft.aspnetcore.authentication.jwtbearer.8.0.4.nupkg.sha512",
     "/Users/duncan/.nuget/packages/microsoft.aspnetcore.cryptography.internal/8.0.4/microsoft.aspnetcore.cryptography.internal.8.0.4.nupkg.sha512",
     "/Users/duncan/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/8.0.4/microsoft.aspnetcore.cryptography.keyderivation.8.0.4.nupkg.sha512",

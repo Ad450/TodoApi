@@ -1,18 +1,21 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TodoApi.Models;
+using TodoApi.Models.Todo;
+using TodoApi.Models.User;
+using TodoApi.Repository.ModelConfigs;
 
 namespace TodoApi.Repository;
 
-public class TodoContext(DbContextOptions<TodoContext> options) : IdentityDbContext(options)
+public class TodoContext(DbContextOptions<TodoContext> options) : DbContext(options)
 {
 
     public DbSet<Todo> Todos { get; set; }
 
-    // protected override void OnModelCreating(ModelBuilder modelBuilder)
-    // {
-    //     modelBuilder.Entity<Todo>().Property(x => x.Title).IsRequired();
-    // }
+    public DbSet<User> Users { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfiguration(new UserModelBuilderConfiguration());
+    }
 
     // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     // {

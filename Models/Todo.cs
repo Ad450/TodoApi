@@ -1,8 +1,11 @@
-﻿namespace TodoApi.Models;
+﻿namespace TodoApi.Models.Todo;
+using TodoApi.Models.User;
+
 
 public class Todo
 {
-    public string? Id { get; set; }
+
+    public Guid Id { get; set; }
 
     public string? Title { get; set; }
 
@@ -11,8 +14,9 @@ public class Todo
     public string? TodoDescription { get; set; }
 
     public DateTime CreatedAt { get; set; }
+    public Guid UserId { set; get; }
 
-
-
+    public User User { set; get; }
 
 }
+
